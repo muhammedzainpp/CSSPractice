@@ -1,0 +1,33 @@
+﻿@page "/"
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+<div class="navbarui">
+    <div id="myTopnav" class="ncontainer">
+        <div class="company"><h1>Edabit</h1></div>
+        <div class="authitems">
+            <button>Login</button>
+            <button>Register</button>
+        </div>
+        <button @onclick="PopDropDown" style="font-size:15px;" class="icon">&#9776;</button>
+    </div>
+</div>
+
+
+@code {
+
+    public async Task PopDropDown()
+    {
+        await JS.InvokeVoidAsync("myFunction");
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            JS.InvokeVoidAsync("getNav", "myTopnav");
+        }
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
+
